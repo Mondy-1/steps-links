@@ -1,377 +1,187 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steps Shoes - Links</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #6b493d; /* اللون البني من اللوجو */
+            --dark-black: #1e1412;    /* اللون الأسود من اللوجو */
+            --bg-cream: #e9e2d8;      /* لون الخلفية الكريمي */
+        }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
 
-  .page {
-    min-height: 100vh;
-    /* دي أهم تعديل: vh بتخلي الطول ياخد 100% من طول الشاشة المتاحة */
-    background: #e9e2d8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    position: relative;
-    overflow: hidden;
-  }
+        body {
+            background-color: var(--bg-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-  .page::before {
-    content: '';
-    position: absolute;
-    top: -80px;
-    left: -80px;
-    width: 300px;
-    height: 300px;
-    background: rgba(107, 73, 61, 0.08);
-    border-radius: 50%
-  }
+        /* تأثيرات الخلفية المتحركة */
+        .bg-elements {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-  .page::after {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    right: -60px;
-    width: 250px;
-    height: 250px;
-    background: rgba(30, 20, 18, 0.05);
-    border-radius: 50%
-  }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+        }
 
-  .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(107, 73, 61, 0.18) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none
-  }
+        .blob-1 { width: 300px; height: 300px; background: var(--primary-brown); top: -50px; left: -50px; animation: float 10s infinite alternate; }
+        .blob-2 { width: 250px; height: 250px; background: var(--dark-black); bottom: -50px; right: -50px; animation: float 12s infinite alternate-reverse; }
 
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(55px);
-    pointer-events: none
-  }
+        @keyframes float {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(40px, 30px) rotate(15deg); }
+        }
 
-  .blob-1 {
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, rgba(107, 73, 61, 0.13), transparent 70%);
-    top: -80px;
-    left: -80px;
-    animation: drift1 13s ease-in-out infinite
-  }
+        /* الكارت الرئيسي (Glassmorphism) */
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            padding: 45px 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(30, 20, 18, 0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
 
-  .blob-2 {
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(circle, rgba(30, 20, 18, 0.07), transparent 70%);
-    bottom: -60px;
-    right: -60px;
-    animation: drift2 11s ease-in-out infinite
-  }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-  @keyframes drift1 {
+        /* منطقة اللوجو */
+        .logo-box {
+            margin-bottom: 35px;
+        }
 
-    0%,
-    100% {
-      transform: translate(0, 0)
-    }
+        .main-logo {
+            width: 140px; /* مقاس اللوجو */
+            height: auto;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
 
-    50% {
-      transform: translate(30px, 20px)
-    }
-  }
+        /* تنسيق الأزرار */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-  @keyframes drift2 {
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
 
-    0%,
-    100% {
-      transform: translate(0, 0)
-    }
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
 
-    50% {
-      transform: translate(-20px, -15px)
-    }
-  }
+        /* تخصيص ألوان الأزرار بناءً على الهوية الجديدة */
+        .btn-wa { background: #25d366; color: white; }
+        .btn-fb { background: var(--dark-black); color: var(--bg-cream); }
+        .btn-ig { background: transparent; color: var(--dark-black); border: 1.5px solid var(--primary-brown); }
+        .btn-tk { background: var(--primary-brown); color: white; }
 
-  .card {
-    background: rgba(255, 255, 255, 0.84);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(107, 73, 61, 0.13);
-    border-radius: 26px;
-    padding: 40px 32px;
-    width: 100%;
-    max-width: 380px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    animation: cardIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both
-  }
+        .btn-icon { width: 24px; height: 24px; display: flex; align-items: center; }
+        .btn-text { flex: 1; text-align: left; }
+        .btn-arrow { font-size: 18px; opacity: 0.4; transition: 0.3s; }
+        .btn:hover .btn-arrow { opacity: 1; transform: translateX(5px); }
 
-  @keyframes cardIn {
-    from {
-      opacity: 0;
-      transform: translateY(24px) scale(0.97)
-    }
+        .footer-text {
+            margin-top: 30px;
+            font-size: 12px;
+            color: var(--primary-brown);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
 
-    to {
-      opacity: 1;
-      transform: none
-    }
-  }
+        /* Responsive */
+        @media (max-width: 480px) {
+            .card { padding: 35px 20px; }
+            .main-logo { width: 110px; }
+        }
+    </style>
+</head>
+<body>
 
-  .logo-svg {
-    width: 115px;
-    height: auto;
-    filter: drop-shadow(0 2px 10px rgba(107, 73, 61, 0.14))
-  }
-
-  .divider {
-    width: 34px;
-    height: 2.7px;
-    background: linear-gradient(90deg, transparent, #6b493d, transparent);
-    margin: 20px auto 26px;
-    border-radius: 2px
-  }
-
-  .links {
-    display: flex;
-    flex-direction: column;
-    gap: 11px
-  }
-
-  .btn {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 14px 18px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    border: 1.5px solid transparent;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease
-  }
-
-  .btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
-    transform: translateX(-100%);
-    transition: transform 0.45s ease
-  }
-
-  .btn:hover::after {
-    transform: translateX(100%)
-  }
-
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(30, 20, 18, 0.14)
-  }
-
-  .btn:active {
-    transform: scale(0.97)
-  }
-
-  .wa {
-    background: #25d366;
-    border-color: #25d366;
-    color: #fff
-  }
-
-  .wa:hover {
-    background: #20c05a
-  }
-
-  .fb {
-    background: #1e1412;
-    border-color: #1e1412;
-    color: #e9e2d8
-  }
-
-  .ig {
-    background: transparent;
-    border-color: rgba(107, 73, 61, 0.38);
-    color: #1e1412
-  }
-
-  .ig:hover {
-    background: rgba(107, 73, 61, 0.06);
-    border-color: #6b493d
-  }
-
-  .tk {
-    background: #6b493d;
-    border-color: #6b493d;
-    color: #e9e2d8
-  }
-
-  .tk:hover {
-    background: #7a5446
-  }
-
-  .btn-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center
-  }
-
-  .btn-icon svg {
-    width: 20px;
-    height: 20px
-  }
-
-  .btn-label {
-    flex: 1;
-    text-align: left
-  }
-
-  .btn-arrow {
-    opacity: 0.45;
-    font-size: 15px;
-    transition: transform 0.2s ease, opacity 0.2s
-  }
-
-  .btn:hover .btn-arrow {
-    transform: translateX(4px);
-    opacity: 0.85
-  }
-
-  .wa-badge {
-    font-size: 10px;
-    background: rgba(255, 255, 255, 0.25);
-    padding: 2px 7px;
-    border-radius: 20px;
-    color: #fff;
-    margin-right: 2px
-  }
-
-  .footer {
-    margin-top: 22px;
-    font-size: 11px;
-    color: rgba(107, 73, 61, 0.5);
-    letter-spacing: 1.8px;
-    text-transform: uppercase
-  }
-
-  .btn:nth-child(1) {
-    animation: slideIn 0.45s ease 0.4s both
-  }
-
-  .btn:nth-child(2) {
-    animation: slideIn 0.45s ease 0.52s both
-  }
-
-  .btn:nth-child(3) {
-    animation: slideIn 0.45s ease 0.64s both
-  }
-
-  .btn:nth-child(4) {
-    animation: slideIn 0.45s ease 0.76s both
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-12px)
-    }
-
-    to {
-      opacity: 1;
-      transform: none
-    }
-  }
-</style>
-
-<div class="page">
-  <div class="bg-grid"></div>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <div class="card">
-    <div style="display:flex;justify-content:center;margin-bottom:4px">
-      <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <g transform="translate(100,90)">
-          <polygon points="-35,-55 5,-55 5,-25 35,-25 35,5 -5,5 -5,35 -35,35 -35,5 5,5 5,-25 -35,-25" fill="#6b493d" />
-          <polygon points="5,-55 35,-55 35,-22 5,-22" fill="#1e1412" />
-          <polygon points="-35,5 -5,5 -5,35 -35,35" fill="#1e1412" />
-        </g>
-        <text x="100" y="166" text-anchor="middle" font-family="'Outfit',sans-serif" font-weight="700" font-size="26"
-          letter-spacing="9" fill="#1e1412">STEPS</text>
-      </svg>
+    <div class="bg-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
 
-    <div class="divider"></div>
+    <div class="card">
+        <div class="logo-box">
+            <img src="logo.png" alt="Steps Shoes" class="main-logo">
+        </div>
 
-    <nav class="links">
+        <nav class="links-container">
+            <a href="https://wa.me/201090716112" class="btn btn-wa" target="_blank">
+                <span class="btn-icon">
+                    <svg fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.057 23.761a.5.5 0 00.614.637l6.094-1.596A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.866 9.866 0 01-5.031-1.376l-.36-.214-3.733.978.995-3.63-.235-.374A9.861 9.861 0 012.1 12c0-5.468 4.432-9.9 9.9-9.9 5.468 0 9.9 4.432 9.9 9.9 0 5.468-4.432 9.9-9.9 9.9z"/></svg>
+                </span>
+                <span class="btn-text">WhatsApp</span>
+                <span class="btn-arrow">→</span>
+            </a>
 
-      <a class="btn wa" href="https://wa.me/201090716112" target="_blank" rel="noopener">
-        <span class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            <path
-              d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.057 23.761a.5.5 0 00.614.637l6.094-1.596A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.866 9.866 0 01-5.031-1.376l-.36-.214-3.733.978.995-3.63-.235-.374A9.861 9.861 0 012.1 12c0-5.468 4.432-9.9 9.9-9.9 5.468 0 9.9 4.432 9.9 9.9 0 5.468-4.432 9.9-9.9 9.9z" />
-          </svg>
-        </span>
-        <span class="btn-label">WhatsApp</span>
-        <span class="wa-badge">تواصل معنا</span>
-        <span class="btn-arrow">→</span>
-      </a>
+            <a href="https://www.facebook.com/profile.php?id=61563703294705" class="btn btn-fb" target="_blank">
+                <span class="btn-icon">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                </span>
+                <span class="btn-text">Facebook</span>
+                <span class="btn-arrow">→</span>
+            </a>
 
-      <a class="btn fb" href="https://www.facebook.com/profile.php?id=61563703294705" target="_blank" rel="noopener">
-        <span class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-          </svg>
-        </span>
-        <span class="btn-label">Facebook</span>
-        <span class="btn-arrow">→</span>
-      </a>
+            <a href="https://www.instagram.com/stepsshoes3?igsh=MTVmbGVuaGdmNmt0NQ==" class="btn btn-ig" target="_blank">
+                <span class="btn-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </span>
+                <span class="btn-text">Instagram</span>
+                <span class="btn-arrow">→</span>
+            </a>
 
-      <a class="btn ig" href="https://www.instagram.com/stepsshoes3?igsh=MTVmbGVuaGdmNmt0NQ==" target="_blank"
-        rel="noopener">
-        <span class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-          </svg>
-        </span>
-        <span class="btn-label">Instagram</span>
-        <span class="btn-arrow">→</span>
-      </a>
+            <a href="https://www.tiktok.com/@shoessteps3?lang=en" class="btn btn-tk" target="_blank">
+                <span class="btn-icon">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
+                </span>
+                <span class="btn-text">TikTok</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </nav>
 
-      <a class="btn tk" href="https://www.tiktok.com/@shoessteps3?lang=en" target="_blank" rel="noopener">
-        <span class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z" />
-          </svg>
-        </span>
-        <span class="btn-label">TikTok</span>
-        <span class="btn-arrow">→</span>
-      </a>
+        <div class="footer-text">STEPS · كل خطوة بتفرق</div>
+    </div>
 
-    </nav>
-
-    <div class="footer">STEPS &nbsp;·&nbsp; كل خطوة بتفرق</div>
-  </div>
-</div>
+</body>
+</html>
